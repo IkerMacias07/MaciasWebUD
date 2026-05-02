@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+  <title>Ejercicios - Iker Macías</title>
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body { font-family: Arial, sans-serif; background: #f5f6fa;
+           color: #1a1a2e; min-height: 100vh; }
+    .page { max-width: 700px; margin: 0 auto; padding: 2rem 1rem; }
+    .header { background: #fff; border: 1px solid #e8e8ed;
+              border-radius: 12px; padding: 1.5rem 1.75rem;
+              margin-bottom: 1.5rem; }
+    .header-top { display: flex; align-items: center; gap: 14px;
+                  margin-bottom: 8px; }
+    .avatar { width: 48px; height: 48px; border-radius: 50%;
+              background: #e6f1fb; display: flex; align-items: center;
+              justify-content: center; font-weight: 500; font-size: 15px;
+              color: #185fa5; flex-shrink: 0; }
+    .titulo { font-size: 20px; font-weight: 500; margin-bottom: 4px; }
+    .badges { display: flex; gap: 6px; flex-wrap: wrap; }
+    .badge { background: #e6f1fb; color: #185fa5; font-size: 11px;
+             padding: 2px 10px; border-radius: 20px; font-weight: 500; }
+    .badge.green { background: #e1f5ee; color: #0f6e56; }
+    .subtitulo { font-size: 13px; color: #666; margin-top: 8px; }
+    .cards { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem;
+             margin-bottom: 1.5rem; }
+    .card { background: #fff; border: 1px solid #e8e8ed;
+            border-radius: 12px; padding: 1.25rem 1.5rem;
+            text-decoration: none; color: inherit;
+            display: block; transition: border-color 0.15s; }
+    .card:hover { border-color: #b0b0b8; }
+    .card-icon { width: 36px; height: 36px; border-radius: 8px;
+                 display: flex; align-items: center; justify-content: center;
+                 margin-bottom: 12px; font-size: 20px; }
+    .card-icon.blue { background: #e6f1fb; }
+    .card-icon.teal { background: #e1f5ee; }
+    .card h2 { font-size: 15px; font-weight: 500; margin-bottom: 4px; }
+    .card p { font-size: 13px; color: #666; line-height: 1.5; }
+    .card-arrow { font-size: 12px; color: #aaa; margin-top: 10px; }
+    .footer { font-size: 12px; color: #aaa; text-align: center;
+              border-top: 1px solid #e8e8ed; padding-top: 1rem; }
+  </style>
+</head>
+<body>
+  <div class="page">
+    <div class="header">
+      <div class="header-top">
+        <div class="avatar">IM</div>
+        <div>
+          <div class="titulo">Ejercicios</div>
+          <div class="badges">
+            <span class="badge">Grupo 301</span>
+            <span class="badge green">Programación Avanzada</span>
+          </div>
+        </div>
+      </div>
+      <div class="subtitulo">
+        Iker Macías · Sistematización de Datos · Universidad Distrital
+      </div>
+    </div>
+
+    <div class="cards">
+      <a href="cdt.xhtml" class="card">
+        <div class="card-icon blue">&#128200;</div>
+        <h2>Simulador CDT</h2>
+        <p>Calcula ganancia, impuestos y valor final de un certificado de depósito.</p>
+        <div class="card-arrow">Ir al ejercicio →</div>
+      </a>
+      <a href="asp.xhtml" class="card">
+        <div class="card-icon teal">&#128100;</div>
+        <h2>Aspirante Universitario</h2>
+        <p>Registra aspirantes y consulta la lista de inscritos por programa.</p>
+        <div class="card-arrow">Ir al ejercicio →</div>
+      </a>
+    </div>
+
+    <div class="footer">
+      Ing. Noé Arcos Muñoz · narcosm@udistrital.edu.co · 2026 · Programación
+    </div>
+  </div>
+</body>
+</html>
