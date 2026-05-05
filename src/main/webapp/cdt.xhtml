@@ -9,85 +9,94 @@
 <title>Simulador CDT</title>
 <style>
   * { box-sizing: border-box; }
-  body { font-family: Arial, sans-serif; background: #f5f6fa;
-         color: #1a1a2e; }
-  h:form, form { max-width: 600px; margin: 2rem auto;
-                 background: #fff; border: 1px solid #e8e8ed;
-                 border-radius: 12px; padding: 2rem; }
-  h2 { font-size: 18px; font-weight: 500; margin-bottom: 1.5rem; }
-  label { font-size: 13px; color: #555; display: block;
-          margin-bottom: 4px; }
+  body { font-family: Arial, sans-serif; background: #f5f6fa; color: #1a1a2e; }
+  form { max-width: 600px; margin: 2rem auto; background: #fff;
+         border: 1px solid #e8e8ed; border-radius: 12px; padding: 2rem; 
+         box-shadow: 0 2px 8px rgba(0,0,0,0.07); }
+  h2 { font-size: 20px; font-weight: 600; margin-bottom: 1.5rem; 
+       color: #185fa5; border-bottom: 2px solid #185fa5; padding-bottom: 8px; }
+  label { font-size: 13px; color: #555; display: block; margin-bottom: 4px; font-weight: 500; }
   input[type="text"], input[type="number"], select {
     width: 100%; padding: 8px 12px; border: 1px solid #ddd;
-    border-radius: 8px; font-size: 14px; margin-bottom: 1rem;
-    outline: none; }
+    border-radius: 8px; font-size: 14px; margin-bottom: 4px; outline: none; }
   input:focus, select:focus { border-color: #185fa5; }
   input[type="submit"], button {
     background: #185fa5; color: #fff; border: none;
     padding: 10px 24px; border-radius: 8px; font-size: 14px;
-    cursor: pointer; margin-bottom: 1rem; }
+    cursor: pointer; margin-top: 8px; margin-bottom: 1rem; width: 100%; }
   input[type="submit"]:hover, button:hover { background: #0c447c; }
-  table { width: 100%; border-collapse: collapse; margin-top: 1rem;
-          font-size: 13px; }
-  th { background: #f5f6fa; padding: 8px 12px; text-align: left;
-       font-weight: 500; border-bottom: 1px solid #e8e8ed; }
-  td { padding: 8px 12px; border-bottom: 1px solid #f0f0f0; }
+  .error { color: #e53935; font-size: 12px; display: block; margin-bottom: 8px; }
+  .resultado { background: #f0f7ff; border: 1px solid #185fa5;
+               border-radius: 10px; padding: 1.2rem; margin-top: 1rem; }
+  .resultado-fila { display: flex; justify-content: space-between;
+                    padding: 6px 0; border-bottom: 1px solid #ddeeff; font-size: 14px; }
+  .resultado-fila:last-child { border-bottom: none; font-weight: bold; color: #185fa5; }
+  .resultado-label { color: #444; }
+  .resultado-valor { color: #1a1a2e; font-weight: 500; }
   footer { text-align: center; font-size: 12px; color: #aaa;
-           margin-top: 2rem; padding-top: 1rem;
-           border-top: 1px solid #e8e8ed; }
+           margin-top: 2rem; padding-top: 1rem; border-top: 1px solid #e8e8ed; }
   a { color: #185fa5; }
 </style>
 </h:head>
 <h:body>
 	<h:form>
-	<h2>Datos para el simulador</h2>
-	<h:outputLabel for="inversion" value="Inversión:" />
-         <h:inputText id="inversion" value="#{cdt.inversion}" required="true" >
-            <f:convertNumber maxFractionDigits="2" />
-    </h:inputText>
-    <br/><br/>
-     <h:outputLabel for="interes" value="Interés (% E.A.):" />
-            <h:inputText id="interes" value="#{cdt.interes}" required="true" />
-            <br/><br/>
+		<h2>Simulador CDT</h2>
 
-            <h:outputLabel for="plazo" value="Plazo (días):" />
-            <h:inputText id="plazo" value="#{cdt.plazo}" required="true" />
-            <br/><br/>
+		<h:outputLabel for="inversion" value="Inversión ($):" />
+		<h:inputText id="inversion" value="#{cdt.inversion}" required="true"
+			requiredMessage="⚠ Ingrese el valor de la inversión.">
+			<f:convertNumber maxFractionDigits="2" />
+		</h:inputText>
+		<h:message for="inversion" styleClass="error" />
 
-            <h:commandButton value="Calcular Ganancia" action="#{cdt.calcular}"  >
-                <f:ajax execute="@form" render="@form" />
-            </h:commandButton>
-            <br/><br/>
+		<h:outputLabel for="interes" value="Interés (% E.A.):" />
+		<h:inputText id="interes" value="#{cdt.interes}" required="true"
+			requiredMessage="⚠ Ingrese la tasa de interés." />
+		<h:message for="interes" styleClass="error" />
 
-            <h:panelGroup rendered="#{cdt.ganancia > 0}">
-                <h:outputText value="Valor Ganacia: "></h:outputText>
+		<h:outputLabel for="plazo" value="Plazo (días):" />
+		<h:inputText id="plazo" value="#{cdt.plazo}" required="true"
+			requiredMessage="⚠ Ingrese el plazo en días." />
+		<h:message for="plazo" styleClass="error" />
 
-                <h:outputText value="#{cdt.ganancia}">
-                    <f:convertNumber type="currency" currencySymbol="$" maxFractionDigits="2" groupingUsed="true" />
-                </h:outputText>
-                <br/>
-                <h:outputText value="Valor final al vencimiento: "></h:outputText>
-                <h:outputText value="#{cdt.valorFuturo - cdt.impuesto}">
-                    <f:convertNumber type="currency" currencySymbol="$" maxFractionDigits="2" groupingUsed="true" />
-                </h:outputText>
-                <br/>
-                <h:outputText value="Valor impuesto 4%: "></h:outputText>
-                <h:outputText value="#{cdt.impuesto}">
-                    <f:convertNumber type="currency" currencySymbol="$" maxFractionDigits="2" groupingUsed="true" />
-                </h:outputText>
-                   <br/>
-                <h:outputText value="Ganancia despues de impuestos: "></h:outputText>
-                <h:outputText value="#{cdt.ganancia - cdt.impuesto}">
-                    <f:convertNumber type="currency" currencySymbol="$" maxFractionDigits="2" groupingUsed="true" />
-                </h:outputText>
+		<h:commandButton value="Calcular Ganancia" action="#{cdt.calcular}">
+			<f:ajax execute="@form" render="@form" />
+		</h:commandButton>
 
-            </h:panelGroup>       
-            
+		<h:panelGroup rendered="#{cdt.ganancia > 0}">
+			<div class="resultado">
+				<div class="resultado-fila">
+					<span class="resultado-label">Ganancia bruta:</span>
+					<h:outputText value="#{cdt.ganancia}" styleClass="resultado-valor">
+						<f:convertNumber type="currency" currencySymbol="$" maxFractionDigits="2" groupingUsed="true" />
+					</h:outputText>
+				</div>
+				<div class="resultado-fila">
+					<span class="resultado-label">Impuesto (4%):</span>
+					<h:outputText value="#{cdt.impuesto}" styleClass="resultado-valor">
+						<f:convertNumber type="currency" currencySymbol="$" maxFractionDigits="2" groupingUsed="true" />
+					</h:outputText>
+				</div>
+				<div class="resultado-fila">
+					<span class="resultado-label">Ganancia después de impuestos:</span>
+					<h:outputText value="#{cdt.ganancia - cdt.impuesto}" styleClass="resultado-valor">
+						<f:convertNumber type="currency" currencySymbol="$" maxFractionDigits="2" groupingUsed="true" />
+					</h:outputText>
+				</div>
+				<div class="resultado-fila">
+					<span class="resultado-label">Valor final al vencimiento:</span>
+					<h:outputText value="#{cdt.valorFuturo - cdt.impuesto}" styleClass="resultado-valor">
+						<f:convertNumber type="currency" currencySymbol="$" maxFractionDigits="2" groupingUsed="true" />
+					</h:outputText>
+				</div>
+			</div>
+		</h:panelGroup>
+
 	</h:form>
 	<footer>
 		<a href="index.xhtml">Inicio</a>
-		<br/><br/><br/><br/>
-		<h4>Ing. Noé Arcos Muñoz  -  narcosm@udistrital.edu.co  -  2026  -  Programación</h4>
+		<br/><br/>
+		<h4>Iker Macias - ikerm@udistrital.edu.co - 2026 - Programación UD</h4>
 	</footer>
 </h:body>
 </html>
