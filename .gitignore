@@ -2,3 +2,7 @@
 .classpath
 .project
 .settings/
+.metadata/
+
+# Maven - NO subir compilados
+target/
