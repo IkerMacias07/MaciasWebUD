@@ -85,7 +85,11 @@ public class Persona implements Serializable{
 				&& Objects.equals(nombres, other.nombres) && Objects.equals(telefono, other.telefono);
 	}
 	
-	
+	@Override
+	public String toString() {
+	    return "Persona [id=" + id_p + ", nombres=" + nombres + 
+	           ", apellidos=" + apellidos + ", correo=" + correo + "]";
+	}
 	
 	
 }
